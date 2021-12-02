@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { request } from "../shared/APIUtils";
 
 // in there we can pass a function or object to middleware and if we pass a function the redux-thunk invoke that function
@@ -12,11 +13,15 @@ export const fetchPosts = () => async (dispatch, getState) => {
   }
 };
 
-export const fetchUser = (userId) => async (dispatch, getState) => {
+export const fetchUser = (userId) => (dispatch, getState) => _fetchUser(userId, dispatch);
+
+// lodash memoize lead to remove identical request after first request
+// solve the identical request solution-1
+const _fetchUser = _.memoize(async (userId, dispatch) => {
   try {
     const response = await request.get(`/users/${userId}`);
     dispatch({ type: "FETCH_USER", payload: response.data });
   } catch (err) {
     console.log(err);
   }
-};
+});
