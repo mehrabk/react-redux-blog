@@ -7,3 +7,5 @@
 - react-redux cycle and render the component with execute the reducer and change state
 
 - dispatch an action that return a function and get with middleware for fetchData asynchronously and dispatch a object.
+
+- fix identical request with 2 solution.
